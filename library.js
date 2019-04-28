@@ -16,6 +16,12 @@ function saveFile(filePath) {
 let credential = JSON.parse(loadFile("cre.json"));
 let data = {};
 let filePath = "";
+let loggedin = false;
+
+function signup(username, password){
+  credential["users"].push({"username": username, "password": password});
+  //Need server to update cre.json
+}
 
 function checkLog(username, password){
   for (i = 0; i < credential["users"].length; i++){
@@ -25,13 +31,17 @@ function checkLog(username, password){
   return false;
 }
 
-function login(username){
-  data = JSON.parse(loadFile(username + ".json"));
-  filePath = username + ".json";
+function login(username, password){
+  if (checkLog(username, password)){
+    data = JSON.parse(loadFile(username + ".json"));
+    filePath = username + ".json";
+    loggedin = true;
+  }
 }
 
 function logout(){
   data = {};
+  loggedin = false;
   filePath = "";
 }
 

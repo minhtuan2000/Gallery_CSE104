@@ -32,4 +32,36 @@ router.get('/:username/:password', (req, res) => {
     }
 });
 
+//Add member
+router.post('/', (req, res) => {
+    const newMember = {
+        username: req.body.username,
+        password: req.body.password
+    }
+
+    if (!newMember.username || !newMember.password){
+        return res.status(400).json({
+            msg: "Missing username or password"
+        })
+    }
+
+    if (members.some(member => member.username === newMember.username)){
+        return res.status(400).json({
+            msg: "Username already existed"
+        });
+    }
+
+    members.push(newMember);
+    fs.writeFile(path.join(__dirname, "../../..", "cre.json"), JSON.stringify({"users": members}), err => {
+        if (err) throw err;
+        fs.writeFile(path.join(__dirname, "../../..", `${newMember.username}.json`), JSON.stringify({"albums": []}), err => {
+            if (err) throw err;
+            res.status(200).json({
+                msg: "User created"
+            });
+        });
+    });
+
+})
+
 module.exports = router;
