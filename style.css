@@ -74,6 +74,11 @@
     text-align: right;
 }
 
+#content-albums{
+
+}
+
+/* LOGIN and SIGNUP*/
 .log-button{
     display: inline-block;
     padding: 10px;
@@ -92,3 +97,15 @@
     background: lightgreen;
 }
 
+.log-form{
+    width: 250px;
+    height: auto;
+    background: white;
+    border: solid gray 1px;
+    border-radius: 5px;
+    padding: 10px;
+    position: absolute;
+    right:5px;
+    text-align: left;
+    visibility: hidden;
+}

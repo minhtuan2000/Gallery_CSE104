@@ -19,8 +19,12 @@ let filePath = "";
 let loggedin = false;
 
 function signup(username, password){
-  credential["users"].push({"username": username, "password": password});
-  //Need server to update cre.json
+  credential["users"].push({username: username, password: password});
+
+  //Update page
+  signupPage.style.visibility = "hidden";
+  alert("New user created");
+  //Need server to update cre.json and create 'username'.json
 }
 
 function checkLog(username, password){
@@ -36,13 +40,24 @@ function login(username, password){
     data = JSON.parse(loadFile(username + ".json"));
     filePath = username + ".json";
     loggedin = true;
+
+    //Update page
+    loginPage.style.visibility = "hidden";
+    loginElement.style.visibility = "hidden";
+    signupElement.style.visibility = "hidden";
+    logoutElement.style.visibility = "visible";
+    usernameText.style.visibility = "visible";
+    usernameText.textContent = "Logged in as " + username;
+    return "Success";
   }
+  return "Invalid username or password";
 }
 
 function logout(){
   data = {};
   loggedin = false;
   filePath = "";
+  return "Logged out";
 }
 
 function getAlbums(){

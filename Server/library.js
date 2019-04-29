@@ -28,9 +28,8 @@ function saveFile(filePath){
   }), res => {
     if (res){
       console.log(JSON.parse(res).msg);
-      return JSON.parse(res).msg;
     }
-  })
+  });
 }
 
 function signup(username, password){
@@ -39,25 +38,34 @@ function signup(username, password){
     password: password
   }), res => {
     if (res){
-      console.log(JSON.parse(res).msg);
-      return JSON.parse(res).msg;
+      addMessage(signupPage, JSON.parse(res).msg);
     }
   });
-  
+
+  //Update page
+  signupPage.style.visibility = "hidden";
+  alert("New user created");
 }
 
 function login(username, password){
   httpGetAsync(`/api/members/${username}/${password}`, res => {
     if (res){
-      data = JSON.parse(JSON.parse(res));
+      data = JSON.parse(res);
       if (!data.hasOwnProperty('msg')){
+        data = JSON.parse(data);
         loggedin = true;
         filePath = username;
-        console.log("Success");
-        return "Success";
+
+        //Update page
+        addMessage(loginPage, "Success");
+        loginPage.style.visibility = "hidden";
+        loginElement.style.visibility = "hidden";
+        signupElement.style.visibility = "hidden";
+        logoutElement.style.visibility = "visible";
+        usernameText.style.visibility = "visible";
+        usernameText.textContent = "Logged in as " + username;
       } else {
-        console.log(data.msg);
-        return data.msg;
+        addMessage(loginPage, data.msg);
       }
     }
   });
