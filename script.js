@@ -14,22 +14,41 @@ function initiate(){
             newAlbum.classList.add("left-box-not-selected");
         }
         //New text
-        let newAlbumText = document.createElement("p");
+        let newAlbumText = document.createElement("span");
         newAlbumText.classList.add("album-text");
         newAlbumText.textContent = list[i];
+        //Delete sign
+        let newDeleteSign = document.createElement("img");
+        newDeleteSign.src = "./Assets/delete.png";
+        newDeleteSign.classList.add("left-icon");
+        newDeleteSign.addEventListener("click", event => {
+            
+        });
+        //Rename sign
+        let newRenameSign = document.createElement("img");
+        newRenameSign.src = "./Assets/rename.png";
+        newRenameSign.classList.add("left-icon");
+        newRenameSign.addEventListener("click", event => {
+
+        });
         //Configure new album
         newAlbum.appendChild(newAlbumText);
+        newAlbum.appendChild(newRenameSign);
+        newAlbum.appendChild(newDeleteSign);
         newAlbum.addEventListener("click", event => {
+            let currentAlbum = event.target;
+            //Check some cases
+            if (event.target.classList.contains("album-text")){
+                currentAlbum = event.target.parentElement;
+            } 
+            if (!currentAlbum.classList.contains("left-box")) return;
             //Change current album
             let lastAlbum = document.getElementsByClassName("left-box-selected")[0];
             lastAlbum.classList.remove("left-box-selected");
             lastAlbum.classList.add("left-box-not-selected");
             wipeContent();
             //Open new album
-            let currentAlbum = event.target;
-            if (event.target.classList.contains("album-text")){
-                currentAlbum = event.target.parentElement;
-            } 
+            // Continue
             currentAlbum.classList.add("left-box-selected");
             currentAlbum.classList.remove("left-box-not-selected");
             selectedAlbum = currentAlbum.getElementsByClassName("album-text")[0].textContent;
@@ -67,3 +86,4 @@ function wipeContent(){
     let list = document.getElementsByClassName("image");
     while (list.length > 0) parentElement.removeChild(list[0]);
 };
+

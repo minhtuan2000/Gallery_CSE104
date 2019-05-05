@@ -98,6 +98,15 @@ function addImage(album, image){
   saveFile(filePath);
 }
 
+function renameAlbum(album, newname){
+  for (i = 0; i < data["albums"].length; i++){
+    if (data["albums"][i]["name"] == album){
+      data["albums"][i]["name"] = newname;
+    }
+  }
+  saveFile(filePath);
+}
+
 function deleteAlbum(album){
   for (i = 0; i < data["albums"].length; i++){
     if (data["albums"][i]["name"] == album){
