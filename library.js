@@ -48,6 +48,7 @@ function login(username, password){
     logoutElement.style.visibility = "visible";
     usernameText.style.visibility = "visible";
     usernameText.textContent = "Logged in as " + username;
+    initiate();
     return "Success";
   }
   return "Invalid username or password";
@@ -57,6 +58,7 @@ function logout(){
   data = {};
   loggedin = false;
   filePath = "";
+  wipeout();
   return "Logged out";
 }
 

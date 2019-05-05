@@ -65,12 +65,13 @@
 
 /* CONTENT */
 #content{   
+    width: 100%;
     margin-left: 255px;
 }
 
 #top-menu{
     width: 100%;
-    height: 30px;
+    height: 60px;
     text-align: right;
 }
 
@@ -108,4 +109,16 @@
     right:5px;
     text-align: left;
     visibility: hidden;
+}
+
+/* IMAGE */
+.image{
+    display: inline-block;
+    background: black;
+    width: 30%;
+    margin: 0.5%; 
+}
+
+.image:hover{
+    opacity: 0.8;
 }

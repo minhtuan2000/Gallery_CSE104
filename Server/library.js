@@ -64,6 +64,7 @@ function login(username, password){
         logoutElement.style.visibility = "visible";
         usernameText.style.visibility = "visible";
         usernameText.textContent = "Logged in as " + username;
+        initiate();
       } else {
         addMessage(loginPage, data.msg);
       }
@@ -75,6 +76,7 @@ function logout(){
   data = {};
   loggedin = false;
   console.log("Logged out");
+  wipeout();
   return "Logged out";
 }
 

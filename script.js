@@ -1,78 +1,67 @@
-//Login and Signup
-const loginElement = document.getElementById("login");
-const signupElement = document.getElementById("signup");
-const usernameText = document.getElementById("username-text");
-const logoutElement = document.getElementById("logout");
+let selectedAlbum = "";
 
-const loginPage = document.getElementById("login-page");
-const signupPage = document.getElementById("signup-page");
-
-const cancelLogin = document.getElementById("cancel-login");
-const cancelSignup = document.getElementById("cancel-signup");
-
-const loginButton = document.getElementById("login-button");
-const signupButton = document.getElementById("signup-button");
-
-loginElement.addEventListener("click", event => {
-    loginPage.style.visibility = "visible";
-});
-
-signupElement.addEventListener("click", event => {
-    signupPage.style.visibility = "visible";
-});
-
-logoutElement.addEventListener("click", event => {
-    loginElement.style.visibility = "visible";
-    signupElement.style.visibility = "visible";
-    logoutElement.style.visibility = "hidden";
-    usernameText.style.visibility = "hidden";
-    usernameText.textContent = "";
-    logout();
-});
-
-cancelLogin.addEventListener("click", event => {
-    loginPage.style.visibility = "hidden";
-});
-
-cancelSignup.addEventListener("click", event => {
-    signupPage.style.visibility = "hidden";
-});
-
-function addMessage(element, message){
-    let newText = element.lastChild;
-    //console.log(newText.nodeName);
-    if (newText.nodeName.toString() != "P"){
-        newText = document.createElement('p');
-        newText.style.color = "red";
-        newText.textContent = message;
-        element.appendChild(newText);
-    } else{
-        newText.textContent = message;
+function initiate(){
+    let list = getAlbums();
+    for (i = 0; i < list.length; i++){
+        let newAlbum = document.createElement("div");
+        newAlbum.classList.add("left-box");
+        if (i == 0){
+            selectedAlbum = list[i];
+            console.log("selected album: " + selectedAlbum);
+            newAlbum.classList.add("left-box-selected");
+        } else {
+            newAlbum.classList.add("left-box-not-selected");
+        }
+        //New text
+        let newAlbumText = document.createElement("p");
+        newAlbumText.classList.add("album-text");
+        newAlbumText.textContent = list[i];
+        //Configure new album
+        newAlbum.appendChild(newAlbumText);
+        newAlbum.addEventListener("click", event => {
+            //Change current album
+            let lastAlbum = document.getElementsByClassName("left-box-selected")[0];
+            lastAlbum.classList.remove("left-box-selected");
+            lastAlbum.classList.add("left-box-not-selected");
+            wipeContent();
+            //Open new album
+            let currentAlbum = event.target;
+            if (event.target.classList.contains("album-text")){
+                currentAlbum = event.target.parentElement;
+            } 
+            currentAlbum.classList.add("left-box-selected");
+            currentAlbum.classList.remove("left-box-not-selected");
+            selectedAlbum = currentAlbum.getElementsByClassName("album-text")[0].textContent;
+            console.log("selected album: " + selectedAlbum);
+            getContent();
+        });
+        //append new album
+        document.getElementById("album-box").appendChild(newAlbum);
     }
-}
+    getContent();
+};
 
-loginButton.addEventListener("click", event => {
-    let username = document.getElementById("uname").value;
-    let password = document.getElementById("psw").value;
-    if (username == "" || password == ""){
-        addMessage(loginPage, "Please fill in the form");
-    } else {
-        result = login(username, password);
-        addMessage(loginPage, result);
-    }
-});
+function wipeout(){
+    let parentElement = document.getElementById("album-box");
+    let list = document.getElementsByClassName("left-box");
+    while (list.length > 1) parentElement.removeChild(list[0]);
+    wipeContent();
+    console.log("Wiped out content");
+};
 
-signupButton.addEventListener("click", event => {
-    let username = document.getElementById("unames").value;
-    let password = document.getElementById("psws").value;
-    let password2 = document.getElementById("psw2s").value;
-    if (username == "" || password == "" || password2 == ""){
-        addMessage(signupPage, "Please fill in the form");
-    } else 
-    if (password != password2){
-        addMessage(signupPage, "Re-entered password doesn't match");
-    } else {
-        result = signup(username, password);
-        addMessage(signupPage, result);
+function getContent(){
+    let parentElement = document.getElementById("content-albums");
+    let list = getImages(selectedAlbum);
+    for (i = 0; i < list.length; i++){
+        let newImage = document.createElement("img");
+        newImage.src = list[i];
+        newImage.classList.add("image");
+        parentElement.appendChild(newImage);
     }
-});
+};
+
+function wipeContent(){
+    let parentElement = document.getElementById("content-albums");
+    let list = document.getElementsByClassName("image");
+    while (list.length > 0) parentElement.removeChild(list[0]);
+};
