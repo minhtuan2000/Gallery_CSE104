@@ -1,6 +1,7 @@
 let selectedAlbum = "";
 
 function initiate(){
+    if (selectedAlbum != "") return;
     let list = getAlbums();
     for (i = 0; i < list.length; i++){
         let newAlbum = document.createElement("div");
@@ -46,6 +47,7 @@ function wipeout(){
     let list = document.getElementsByClassName("left-box");
     while (list.length > 1) parentElement.removeChild(list[0]);
     wipeContent();
+    selectedAlbum = "";
     console.log("Wiped out content");
 };
 
