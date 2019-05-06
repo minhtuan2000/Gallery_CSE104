@@ -1,30 +1,62 @@
-function loadFile(filePath) {
+//Check if local storage has necessary data
+if (localStorage.getItem("credentials") == null) initializeLocalStorage();
+
+function initializeLocalStorage(){
+  //Clear data
+  localStorage.clear();
+  //Push new data
+  localStorage.setItem("credentials", loadCredential());
+  for (i = 0; i < JSON.parse(localStorage.getItem("credentials"))["users"].length; i++){
+    let username = JSON.parse(localStorage.getItem("credentials"))["users"][i]["username"];
+    localStorage.setItem(username, loadUser(username));
+  }
+}
+
+function loadCredential(){
   let result = null;
   let xmlhttp = new XMLHttpRequest();
-  xmlhttp.open("GET", filePath, false);
+  xmlhttp.open("GET", "cre.json", false);
   xmlhttp.send();
   if (xmlhttp.status==200) {
     result = xmlhttp.responseText;
+  } else {
+    result = '{"users":[{"username":"admin","password":"admin"}]}';
+  }
+  return result;
+}
+
+function loadUser(username){
+  let result = null;
+  let xmlhttp = new XMLHttpRequest();
+  xmlhttp.open("GET", username + ".json", false);
+  xmlhttp.send();
+  if (xmlhttp.status==200) {
+    result = xmlhttp.responseText;
+  } else {
+    result = '{"albums":[]}';
   }
   return result;
 }
 
 function saveFile(filePath) {
-  //Need a server!
+  //Save to local storage
+  localStorage.setItem(filePath, JSON.stringify(data));
 }
 
-let credential = JSON.parse(loadFile("cre.json"));
+let credential = JSON.parse(localStorage.getItem("credentials"));
 let data = {};
 let filePath = "";
 let loggedin = false;
 
 function signup(username, password){
   credential["users"].push({username: username, password: password});
-
   //Update page
   signupPage.style.visibility = "hidden";
+  //update credential and create 'username' data
+  localStorage.setItem("credentials", JSON.stringify(credential));
+  localStorage.setItem(username, '{"albums":[]}');
+  //Alert
   alert("New user created");
-  //Need server to update cre.json and create 'username'.json
 }
 
 function checkLog(username, password){
@@ -37,8 +69,8 @@ function checkLog(username, password){
 
 function login(username, password){
   if (checkLog(username, password)){
-    data = JSON.parse(loadFile(username + ".json"));
-    filePath = username + ".json";
+    data = JSON.parse(localStorage.getItem(username));
+    filePath = username;
     loggedin = true;
 
     //Update page
