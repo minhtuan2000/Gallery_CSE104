@@ -1,5 +1,6 @@
 /* MAIN */
 #main{
+    z-index: 1;
     display: flex;
 }
 
@@ -144,6 +145,20 @@
     width: 24%;
     transition: width 0.5s;
     margin: 0.5%; 
+}
+
+.image-preview-panel{
+    z-index: 2;
+    position: fixed;
+    background: black;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 5vh;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+    vertical-align: bottom;
 }
 
 @media (max-width: 1500px){

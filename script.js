@@ -104,7 +104,7 @@ function getContent(){
 
 function wipeContent(){
     let parentElement = document.getElementById("content-albums");
-    let list = document.getElementsByClassName("image");
+    let list = parentElement.getElementsByClassName("image-cover");
     while (list.length > 0) parentElement.removeChild(list[0]);
 };
 
@@ -230,20 +230,57 @@ let selectedImages = [];
 let copiedImages = [];
 let cutImages = [];
 
+function selectImage(imageElement){
+    imageElement.parentElement.style.background = "blue";
+    imageElement.style.opacity = 0.8;
+    selectedImages.push(imageElement);
+    console.log("selected " + imageElement.src);
+}
+
+function deselectImage(imageElement){
+    imageElement.parentElement.style.background = "lightgray";
+    imageElement.style.opacity = 1;
+    selectedImages.splice(selectedImages.indexOf(imageElement), 1);
+    console.log("deselected " + imageElement.src);
+}
+
 function selectImageProtocol(event){
-    while (selectedImages.length > 0){
-        selectedImage = selectedImages.pop();
-        selectedImage.parentElement.style.background = "lightgray";
-        selectedImage.style.opacity = 1;
+    if (!event.ctrlKey){
+        // If ctrl key is not pressed then unselect all element
+        while (selectedImages.length > 0){
+            selectedImage = selectedImages.pop();
+            selectedImage.parentElement.style.background = "lightgray";
+            selectedImage.style.opacity = 1;
+        }
+        selectImage(event.target);
     }
-    event.target.parentElement.style.background = "blue";
-    event.target.style.opacity = 0.8;
-    selectedImages.push(event.target);
-    console.log("selected " + event.target.src);
+    else if (selectedImages.includes(event.target)){
+        // If a selected image is clicked, it becomes unselected
+        deselectImage(event.target);
+    } 
+    else{
+        // Else, just select that image
+        selectImage(event.target);
+    };
+}
+
+function previewImage(imageElement){
+    let newImagePreviewPanel = document.createElement("div");
+    newImagePreviewPanel.classList.add("image-preview-panel");
+    let newImagePreview = document.createElement("img");
+    newImagePreview.classList.add("image");
+    newImagePreview.src = imageElement.src;
+    newImagePreviewPanel.appendChild(newImagePreview);
+    newImagePreviewPanel.addEventListener("click", event => {
+        document.body.removeChild(newImagePreviewPanel);
+        console.log("Out of preview mode");
+    });
+    document.body.insertBefore(newImagePreviewPanel, document.body.firstChild);
+    console.log("In preview mode");
 }
 
 function previewImageProtocol(event){
-    
+    previewImage(event.target);
 }
 
 function rightClickImageProtocol(event){
