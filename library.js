@@ -152,8 +152,9 @@ function deleteImage(album, image){
   for (i = 0; i < data["albums"].length; i++){
     if (data["albums"][i]["name"] == album){
       for (j = 0; j < data["albums"][i]["files"].length; j++){
-        if (data["albums"][i]["files"][j] == image){
+        if (image.includes(data["albums"][i]["files"][j])){
           data["albums"][i]["files"].splice(j, 1);
+          break;
         }
       }
     }

@@ -150,15 +150,42 @@
 .image-preview-panel{
     z-index: 2;
     position: fixed;
-    background: black;
+    background: lightgray;
     margin-left: 10%;
     margin-right: 10%;
     margin-top: 5vh;
-    padding-left: 5%;
-    padding-right: 5%;
-    padding-top: 5vh;
-    padding-bottom: 5vh;
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    border-radius: 10px;
     vertical-align: bottom;
+    visibility: hidden;
+}
+
+#button-close-preview{
+    position: relative;
+    left: 100%;
+    text-align: center;
+    width: 20px;
+    background:lightgray;
+    border-radius: 50%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#popup-choices{
+    z-index: 2;
+    position: fixed;
+    background: black;
+    border: solid white 1px;
+    padding-left: 16px;
+    padding-right: 16px;
+    visibility: hidden;
+}
+
+.popup-choice{
+    background: black;
+    color: lightgrey;
 }
 
 @media (max-width: 1500px){
@@ -178,3 +205,4 @@
         width: 99%;
     }
 }
+

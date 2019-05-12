@@ -1,5 +1,3 @@
-let selectedAlbum = "";
-
 function initiate(){
     if (selectedAlbum != "") return;
     let list = getAlbums();
@@ -95,7 +93,7 @@ function getContent(){
         newImage.classList.add("image");
         newImage.addEventListener('click', selectImageProtocol);
         newImage.addEventListener('dblclick', previewImageProtocol);
-        newImage.addEventListener('oncontextmenu', rightClickImageProtocol);
+        newImage.addEventListener('contextmenu', rightClickImageProtocol);
         //Append image to cover and cover to parentElement
         newCover.appendChild(newImage);
         parentElement.appendChild(newCover);
@@ -106,6 +104,7 @@ function wipeContent(){
     let parentElement = document.getElementById("content-albums");
     let list = parentElement.getElementsByClassName("image-cover");
     while (list.length > 0) parentElement.removeChild(list[0]);
+    selectedImages = [];
 };
 
 function deleteAlbumProtocol(event){
@@ -226,10 +225,6 @@ function addAlbumProtocol(event){
     };
 };
 
-let selectedImages = [];
-let copiedImages = [];
-let cutImages = [];
-
 function selectImage(imageElement){
     imageElement.parentElement.style.background = "blue";
     imageElement.style.opacity = 0.8;
@@ -265,17 +260,10 @@ function selectImageProtocol(event){
 }
 
 function previewImage(imageElement){
-    let newImagePreviewPanel = document.createElement("div");
-    newImagePreviewPanel.classList.add("image-preview-panel");
-    let newImagePreview = document.createElement("img");
-    newImagePreview.classList.add("image");
-    newImagePreview.src = imageElement.src;
-    newImagePreviewPanel.appendChild(newImagePreview);
-    newImagePreviewPanel.addEventListener("click", event => {
-        document.body.removeChild(newImagePreviewPanel);
-        console.log("Out of preview mode");
-    });
-    document.body.insertBefore(newImagePreviewPanel, document.body.firstChild);
+    let imagePreviewPanel = document.getElementsByClassName("image-preview-panel")[0];
+    let imagePreview = imagePreviewPanel.getElementsByClassName("image")[0];
+    imagePreview.src = imageElement.src;
+    imagePreviewPanel.style.visibility = "visible";
     console.log("In preview mode");
 }
 
@@ -284,5 +272,101 @@ function previewImageProtocol(event){
 }
 
 function rightClickImageProtocol(event){
+    event.preventDefault();
+    let popupElement = document.getElementById("popup-choices");
+    while(popupElement.childElementCount > 0) popupElement.removeChild(popupElement.lastChild);
+    popupElement.style.visibility = "visible";
+    popupElement.style.transform = "translate(" + (event.clientX).toString() + "px," + (event.clientY).toString() + "px)";
+    //Add preview
+    let newPopupChoice0 = document.createElement("p");
+    newPopupChoice0.classList.add("popup-choice");
+    newPopupChoice0.textContent = "Preview";
+    newPopupChoice0.addEventListener("click", e => {
+        previewImage(event.target);
+    });
+    popupElement.appendChild(newPopupChoice0);
+    //Add select, deselect
+    let newPopupChoice1 = document.createElement("p");
+    newPopupChoice1.classList.add("popup-choice");
+    if (!selectedImages.includes(event.target)){
+        newPopupChoice1.textContent = "Select";
+        newPopupChoice1.addEventListener("click", e => {
+            selectImage(event.target);
+        });
+    } else {
+        newPopupChoice1.textContent = "Deselect";
+        newPopupChoice1.addEventListener("click", e => {
+            deselectImage(event.target);
+        });
 
+        //Add copy
+        //Copy only available for selected image
+        let newPopupChoice2 = document.createElement("p");
+        newPopupChoice2.classList.add("popup-choice");
+        newPopupChoice2.textContent = "Copy";
+        newPopupChoice2.addEventListener("click", copyImagesProtocol);
+        popupElement.appendChild(newPopupChoice2);
+
+        //Add cut
+        //Cut only available for selected image
+        let newPopupChoice3 = document.createElement("p");
+        newPopupChoice3.classList.add("popup-choice");
+        newPopupChoice3.textContent = "Cut";
+        newPopupChoice3.addEventListener("click", cutImagesProtocol);
+        popupElement.appendChild(newPopupChoice3);
+
+        //Add delete
+        let newPopupChoice4 = document.createElement("p");
+        newPopupChoice4.classList.add("popup-choice");
+        newPopupChoice4.textContent = "Delete";
+        newPopupChoice4.addEventListener("click", deleteImagesProtocol);
+        popupElement.appendChild(newPopupChoice4);
+    };
+    popupElement.appendChild(newPopupChoice1);
 }
+
+function copyImagesProtocol(event){
+    cutImages = [];
+    copiedImages = [];
+    for (i = 0; i < selectedImages.length; i++){
+        copiedImages.push(selectedImages[i]);
+    }
+    fromAlbum = selectedAlbum;
+    console.log("Copied " + selectedImages.length.toString() + " images");
+}
+
+function cutImagesProtocol(event){
+    copiedImages = [];
+    cutImages = [];
+    for (i = 0; i < selectedImages.length; i++){
+        cutImages.push(selectedImages[i]);
+    }
+    fromAlbum = selectedAlbum;
+    console.log("Cut " + selectedImages.length.toString() + " images");
+}
+
+function pasteImagesProtocol(event){
+    while (cutImages.length > 0){
+        image = cutImages.pop().src;
+        addImage(selectedAlbum, image);
+        deleteImage(fromAlbum, image);
+    }
+    while (copiedImages.length > 0) addImage(selectedAlbum, copiedImages.pop().src);
+    wipeContent();
+    getContent();
+}
+
+function deleteImagesProtocol(event){
+    console.log("Deleted " + selectedImages.length.toString() + " images");
+    while (selectedImages.length > 0) deleteImage(selectedAlbum, selectedImages.pop().src);
+    wipeContent();
+    getContent();
+}
+
+function selectAllImagesProtocol(event){
+    let imageElementList = document.getElementsByClassName("image");
+    selectedImages = [];
+    for (i = 0; i < imageElementList.length; i++)
+        selectImage(imageElementList[i]);
+}
+
