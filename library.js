@@ -60,7 +60,7 @@ function signup(username, password){
 }
 
 function checkLog(username, password){
-  for (i = 0; i < credential["users"].length; i++){
+  for (let i = 0; i < credential["users"].length; i++){
     if (username == credential["users"][i]["username"] && password == credential["users"][i]["password"])
       return true;
   }
@@ -96,7 +96,7 @@ function logout(){
 
 function getAlbums(){
   let result = [];
-  for (i = 0; i < data["albums"].length; i++){
+  for (let i = 0; i < data["albums"].length; i++){
     result.push(data["albums"][i]["name"]);
   }
   saveFile(filePath);
@@ -105,9 +105,9 @@ function getAlbums(){
 
 function getImages(album){
   let result = [];
-  for (i = 0; i < data["albums"].length; i++){
+  for (let i = 0; i < data["albums"].length; i++){
     if (data["albums"][i]["name"] == album){
-      for (j = 0; j < data["albums"][i]["files"].length; j++){
+      for (let j = 0; j < data["albums"][i]["files"].length; j++){
         result.push(data["albums"][i]["files"][j]);
       }
     }
@@ -122,7 +122,7 @@ function addAlbum(album){
 }
 
 function addImage(album, image){
-  for (i = 0; i < data["albums"].length; i++){
+  for (let i = 0; i < data["albums"].length; i++){
     if (data["albums"][i]["name"] == album){
       data["albums"][i]["files"].push(image);
     }
@@ -131,7 +131,7 @@ function addImage(album, image){
 }
 
 function renameAlbum(album, newname){
-  for (i = 0; i < data["albums"].length; i++){
+  for (let i = 0; i < data["albums"].length; i++){
     if (data["albums"][i]["name"] == album){
       data["albums"][i]["name"] = newname;
     }
@@ -140,7 +140,7 @@ function renameAlbum(album, newname){
 }
 
 function deleteAlbum(album){
-  for (i = 0; i < data["albums"].length; i++){
+  for (let i = 0; i < data["albums"].length; i++){
     if (data["albums"][i]["name"] == album){
       data["albums"].splice(i, 1);
     }
@@ -149,9 +149,9 @@ function deleteAlbum(album){
 }
 
 function deleteImage(album, image){
-  for (i = 0; i < data["albums"].length; i++){
+  for (let i = 0; i < data["albums"].length; i++){
     if (data["albums"][i]["name"] == album){
-      for (j = 0; j < data["albums"][i]["files"].length; j++){
+      for (let j = 0; j < data["albums"][i]["files"].length; j++){
         if (image.includes(data["albums"][i]["files"][j])){
           data["albums"][i]["files"].splice(j, 1);
           break;

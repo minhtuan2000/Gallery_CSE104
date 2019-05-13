@@ -59,3 +59,9 @@ document.body.addEventListener("keydown",function(e){
     }
 
 },false);
+//Handle add image button
+let addImageButton = document.getElementById("image-uploads");
+addImageButton.addEventListener("change", event => {
+    console.log(addImageButton.files);
+});
+

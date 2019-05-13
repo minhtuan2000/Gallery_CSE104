@@ -1,7 +1,8 @@
 function initiate(){
+    //Initialize page after log in
     if (selectedAlbum != "") return;
     let list = getAlbums();
-    for (i = 0; i < list.length; i++){
+    for (let i = 0; i < list.length; i++){
         let newAlbum = document.createElement("div");
         //New text
         let newAlbumText = document.createElement("span");
@@ -68,6 +69,8 @@ function initiate(){
     addAlbumSign.appendChild(addAlbumButton);
     addAlbumSign.addEventListener("click", addAlbumProtocol);
     document.getElementById("left-menu").appendChild(addAlbumSign);
+    //Make add-image button available
+    document.getElementById("add-image-button").style.visibility = "visible";
 };
 
 function wipeout(){
@@ -77,13 +80,15 @@ function wipeout(){
     document.getElementById("left-menu").removeChild(document.getElementsByClassName("left-box")[0]);
     wipeContent();
     selectedAlbum = "";
+    //Clear add-image button
+    document.getElementById("add-image-button").style.visibility = "hidden";
     console.log("Wiped out content");
 };
 
 function getContent(){
     let parentElement = document.getElementById("content-albums");
     let list = getImages(selectedAlbum);
-    for (i = 0; i < list.length; i++){
+    for (let i = 0; i < list.length; i++){
         //New cover
         let newCover = document.createElement("div");
         newCover.classList.add("image-cover");
@@ -222,6 +227,31 @@ function addAlbumProtocol(event){
             selectedAlbum = newName;
             console.log("selected album: " + selectedAlbum);
         };
+    } else {
+        //Delete that album if a name is not chosen
+        if (!currentAlbum.classList.contains("left-box")) return;
+        let currentAlbumName = currentAlbum.getElementsByClassName("album-text")[0].textContent;
+        let parentElement = document.getElementById("album-box");
+        parentElement.removeChild(currentAlbum);
+        deleteAlbum(currentAlbumName);
+        //Check if album is selected
+        if (selectedAlbum == currentAlbumName){
+            if (document.getElementsByClassName("left-box").length == 0){
+                selectedAlbum = "";
+                console.log("selected album: " + selectedAlbum);
+                wipeContent();
+            } else {
+                let currentAlbum = document.getElementsByClassName("left-box")[0];
+                currentAlbum.classList.add("left-box-selected");
+                currentAlbum.classList.remove("left-box-not-selected");
+                currentAlbum.getElementsByTagName("img")[1].src = "./Assets/delete.png";
+                currentAlbum.getElementsByTagName("img")[0].src = "./Assets/rename.png";
+                selectedAlbum = currentAlbum.getElementsByClassName("album-text")[0].textContent;
+                console.log("selected album: " + selectedAlbum);
+                wipeContent();
+                getContent();
+            };
+        };
     };
 };
 
@@ -328,7 +358,7 @@ function rightClickImageProtocol(event){
 function copyImagesProtocol(event){
     cutImages = [];
     copiedImages = [];
-    for (i = 0; i < selectedImages.length; i++){
+    for (let i = 0; i < selectedImages.length; i++){
         copiedImages.push(selectedImages[i]);
     }
     fromAlbum = selectedAlbum;
@@ -338,7 +368,7 @@ function copyImagesProtocol(event){
 function cutImagesProtocol(event){
     copiedImages = [];
     cutImages = [];
-    for (i = 0; i < selectedImages.length; i++){
+    for (let i = 0; i < selectedImages.length; i++){
         cutImages.push(selectedImages[i]);
     }
     fromAlbum = selectedAlbum;
@@ -351,7 +381,7 @@ function pasteImagesProtocol(event){
         addImage(selectedAlbum, image);
         deleteImage(fromAlbum, image);
     }
-    while (copiedImages.length > 0) addImage(selectedAlbum, copiedImages.pop().src);
+    for (let i = 0; i < copiedImages.length; i++) addImage(selectedAlbum, copiedImages[i].src);
     wipeContent();
     getContent();
 }
@@ -364,9 +394,9 @@ function deleteImagesProtocol(event){
 }
 
 function selectAllImagesProtocol(event){
-    let imageElementList = document.getElementsByClassName("image");
+    let imageElementList = document.getElementById("content-albums").getElementsByClassName("image");
     selectedImages = [];
-    for (i = 0; i < imageElementList.length; i++)
+    for (let i = 0; i < imageElementList.length; i++)
         selectImage(imageElementList[i]);
 }
 

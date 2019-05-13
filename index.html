@@ -63,40 +63,51 @@
             </div>
             <div id="content">
                 <div id="top-menu">
-                    <div class="log-button" id = "login">
-                        Login
+
+                    <div id = "add-image">
+                        <div>
+                            <label for="image-uploads" id = "add-image-button">Add images (PNG, JPG)</label>
+                            <input type="file" id="image-uploads" style="visibility: hidden" accept=".jpg, .jpeg, .png" multiple>
+                        </div>
                     </div>
-                    <div class="log-button" id = "signup">
-                        Sign up
-                    </div>
-                    <span id = "username-text" style = "visibility: hidden"></span>
-                    <div class="log-button" id = "logout" style = "visibility: hidden">
-                        Logout
+                    
+                    <div id = "login-signup">
+                        <div class="log-button" id = "login">
+                            Login
+                        </div>
+                        <div class="log-button" id = "signup">
+                            Sign up
+                        </div>
+                        <span id = "username-text" style = "visibility: hidden"></span>
+                        <div class="log-button" id = "logout" style = "visibility: hidden">
+                            Logout
+                        </div>
+    
+                        <div class="log-form" id="login-page">
+                            <span>Username</span>
+                            <input type="text" id="uname" style="width: 90%" required>
+                        
+                            <span>Password</span>
+                            <input type="password" id="psw" style="width: 90%" required>
+                                
+                            <button id="login-button">Login</button>
+                            <button id="cancel-login">Cancel</button>
+                        </div>
+                        <div class="log-form" id="signup-page">
+                            <span>Username</span>
+                            <input type="text" id="unames" style="width: 90%" required>
+                        
+                            <span>Password</span>
+                            <input type="password" id="psws" style="width: 90%" required>
+    
+                            <span>Re-enter password</span>
+                            <input type="password" id="psw2s" style="width: 90%" required>
+                                
+                            <button id="signup-button">Sign up</button>
+                            <button id="cancel-signup">Cancel</button>
+                        </div>
                     </div>
 
-                    <div class="log-form" id="login-page">
-                        <span>Username</span>
-                        <input type="text" id="uname" style="width: 90%" required>
-                    
-                        <span>Password</span>
-                        <input type="password" id="psw" style="width: 90%" required>
-                            
-                        <button id="login-button">Login</button>
-                        <button id="cancel-login">Cancel</button>
-                    </div>
-                    <div class="log-form" id="signup-page">
-                        <span>Username</span>
-                        <input type="text" id="unames" style="width: 90%" required>
-                    
-                        <span>Password</span>
-                        <input type="password" id="psws" style="width: 90%" required>
-
-                        <span>Re-enter password</span>
-                        <input type="password" id="psw2s" style="width: 90%" required>
-                            
-                        <button id="signup-button">Sign up</button>
-                        <button id="cancel-signup">Cancel</button>
-                    </div>
                 </div>
                 <div id="content-albums">
                     

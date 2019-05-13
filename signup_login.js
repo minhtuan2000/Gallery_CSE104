@@ -15,10 +15,12 @@ const signupButton = document.getElementById("signup-button");
 
 loginElement.addEventListener("click", event => {
     loginPage.style.visibility = "visible";
+    signupPage.style.visibility = "hidden";
 });
 
 signupElement.addEventListener("click", event => {
     signupPage.style.visibility = "visible";
+    loginPage.style.visibility = "hidden";
 });
 
 logoutElement.addEventListener("click", event => {
