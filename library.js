@@ -122,12 +122,29 @@ function addAlbum(album){
 }
 
 function addImage(album, image){
-  for (let i = 0; i < data["albums"].length; i++){
+  for (i = 0; i < data["albums"].length; i++){
     if (data["albums"][i]["name"] == album){
       data["albums"][i]["files"].push(image);
     }
   }
   saveFile(filePath);
+}
+
+function addImage_localStorage(album, imageData){
+  // Use fileReader to convert image to dataURL and save in localstorage
+  var reader = new FileReader();
+  reader.readAsDataURL(imageData);
+  reader.onload = function () {
+  for (let i = 0; i < data["albums"].length; i++){
+    if (data["albums"][i]["name"] == album){
+      data["albums"][i]["files"].push(reader.result);
+    }
+  }
+  saveFile(filePath);
+  };
+  reader.onerror = function (error) {
+    console.log('Error: ', error);
+  };
 }
 
 function renameAlbum(album, newname){
@@ -161,4 +178,3 @@ function deleteImage(album, image){
   }
   saveFile(filePath);
 }
-

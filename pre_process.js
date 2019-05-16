@@ -63,7 +63,8 @@ document.body.addEventListener("keydown",function(e){
 let addImageButton = document.getElementById("image-uploads");
 addImageButton.addEventListener("change", event => {
     for (let i = 0; i < event.target.files.length; i++){
-        addImage(selectedAlbum, URL.createObjectURL(event.target.files[i]));
+        addImage_localStorage(selectedAlbum, event.target.files[i]);
+        //addImage(selectedAlbum, URL.createObjectURL(event.target.files[i]));
     };
     wipeContent();
     getContent();

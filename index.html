@@ -1,120 +1,55 @@
+
+
 <!DOCTYPE html>
 
 <html lang="en">
 
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href='https://fonts.googleapis.com/css?family=Allura' rel='stylesheet'>
-        <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet"> 
-        <link rel="stylesheet" type="text/css" href="./style.css">
-        
-        <!-- For local storage -->
-        <script src="./library.js" defer></script>
-        
-        <!-- For server -->
-        <!-- <script src="./Server/library.js" defer></script> -->
-        
-        <script src="./signup_login.js" defer></script>
-        <script src="./pre_process.js" defer></script>
-        <script src="./script.js" defer></script>
-        <title> My gallery </title>
-    </head>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="project.css">
+    <script src="project.js" defer></script>
+    <title> My Webpage </title>
+</head>
 
-    <body style="margin: 0px"> 
-        <div class="image-preview-panel">
-            <div id="button-close-preview">X</div>
-            <img class="image">
-        </div>
-        <div id="popup-choices">
+<body> 
 
-        </div>
-        <div id="main">
-            <div id="left-menu">
-                <div id="logo">
-                    <a href="" style="text-decoration: none">
-                        <h1 id="logo-text">
-                            Gallery
-                        </h1>
-                    </a>
-                </div>
+    <div class="bg"></div>
 
-                <div id="album-box">
-                    <!-- 
-                    <div class="left-box left-box-selected">
-                        <p class="album-text">
-                            Album 1
-                        </p>
-                    </div>
-                    <div class="left-box left-box-not-selected">
-                        <p class="album-text">
-                            Album 2
-                        </p>
-                    </div> -->
-                </div>
-                    
-                <!-- 
-                <div class="left-box left-box-not-selected">
-                    <div id="button-add-album">
-                        +
-                    </div>
-                </div> -->
-                
+    <div class='centered_logo'> <canvas id="canvas" width="200" height="200"></canvas> </div>
+
+    <div class= "centered_title"> <h1> GALAXY GALLERIES  </h1> </div>
+
+    <div class= "centered_it"> <h2> Welcome to Galaxy Galleries! Beyond this lies your personal gallery of the vast majority of the universe.
+        Behold the mightiest creations and add your own moments of traversing the universe.  </h2> </div>
+
+    <!--<div class="centered_link"> <a href='https://www.google.com'>  Welcome! Click here to see your photos </a>   </div> -->
+
+
+    <div class='centered_button'> <button> <a href = 'main.html'> SEE YOUR PHOTOS </a> </button> </div>
+
+
+
+
+
+    <div class='centered_box'><div class="box">
+            <div class="inner">
+              <span> To infinity and beyond </span>
             </div>
-            <div id="content">
-                <div id="top-menu">
-
-                    <div id = "add-image">
-                        <div>
-                            <label for="image-uploads" id = "add-image-button">Add images (PNG, JPG)</label>
-                            <input type="file" id="image-uploads" style="visibility: hidden" accept=".jpg, .jpeg, .png" multiple>
-                        </div>
-                    </div>
-                    
-                    <div id = "login-signup">
-                        <div class="log-button" id = "login">
-                            Login
-                        </div>
-                        <div class="log-button" id = "signup">
-                            Sign up
-                        </div>
-                        <span id = "username-text" style = "visibility: hidden"></span>
-                        <div class="log-button" id = "logout" style = "visibility: hidden">
-                            Logout
-                        </div>
-    
-                        <div class="log-form" id="login-page">
-                            <span>Username</span>
-                            <input type="text" id="uname" style="width: 90%" required>
-                        
-                            <span>Password</span>
-                            <input type="password" id="psw" style="width: 90%" required>
-                                
-                            <button id="login-button">Login</button>
-                            <button id="cancel-login">Cancel</button>
-                        </div>
-                        <div class="log-form" id="signup-page">
-                            <span>Username</span>
-                            <input type="text" id="unames" style="width: 90%" required>
-                        
-                            <span>Password</span>
-                            <input type="password" id="psws" style="width: 90%" required>
-    
-                            <span>Re-enter password</span>
-                            <input type="password" id="psw2s" style="width: 90%" required>
-                                
-                            <button id="signup-button">Sign up</button>
-                            <button id="cancel-signup">Cancel</button>
-                        </div>
-                    </div>
-
-                </div>
-                <div id="content-albums">
-                    
-                </div>
-                   
+            <div class="inner">
+              <span> To infinity and beyond </span>
             </div>
-        </div>
-    </body>
+          </div>
+    </div>
+
+    
+    <div class="bg"></div>
+
+    <div class="footer">
+        <p>Ashish Nayak, Minh Tuan Nguyen :  CSE104 Project</p>
+    </div>
+
+</body>
 
 </html>
+

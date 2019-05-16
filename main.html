@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href='https://fonts.googleapis.com/css?family=Allura' rel='stylesheet'>
+        <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet"> 
+        <link rel="stylesheet" type="text/css" href="./style.css">
+        
+        <!-- For local storage -->
+        <script src="./library.js" defer></script>
+        
+        <!-- For server -->
+        <!-- <script src="./Server/library.js" defer></script> -->
+        
+        <script src="./signup_login.js" defer></script>
+        <script src="./pre_process.js" defer></script>
+        <script src="./script.js" defer></script>
+        <title> My gallery </title>
+    </head>
+
+    <body> 
+        <div class="image-preview-panel">
+            <div id="button-close-preview">X</div>
+            <img class="image">
+        </div>
+        <div id="popup-choices">
+
+        </div>
+        <div id="main">
+            <div id="left-menu">
+                <div id="logo">
+                    <a href="" style="text-decoration: none">
+                        <h1 id="logo-text">
+                            Gallery
+                        </h1>
+                    </a>
+                </div>
+
+                <div id="album-box">
+                    <!-- 
+                    <div class="left-box left-box-selected">
+                        <p class="album-text">
+                            Album 1
+                        </p>
+                    </div>
+                    <div class="left-box left-box-not-selected">
+                        <p class="album-text">
+                            Album 2
+                        </p>
+                    </div> -->
+                </div>
+                    
+                <!-- 
+                <div class="left-box left-box-not-selected">
+                    <div id="button-add-album">
+                        +
+                    </div>
+                </div> -->
+                
+            </div>
+            <div id="content">
+                <div id="top-menu">
+
+                    <div id = "add-image">
+                        <div>
+                            <label for="image-uploads" id = "add-image-button">Add images (PNG, JPG)</label>
+                            <input type="file" id="image-uploads" style="visibility: hidden" accept=".jpg, .jpeg, .png" multiple>
+                        </div>
+                    </div>
+                    
+                    <div id = "login-signup">
+                        <div class="log-button" id = "login">
+                            Login
+                        </div>
+                        <div class="log-button" id = "signup">
+                            Sign up
+                        </div>
+                        <span id = "username-text" style = "visibility: hidden"></span>
+                        <div class="log-button" id = "logout" style = "visibility: hidden">
+                            Logout
+                        </div>
+    
+                        <div class="log-form" id="login-page">
+                            <span>Username</span>
+                            <input type="text" id="uname" style="width: 90%" required>
+                        
+                            <span>Password</span>
+                            <input type="password" id="psw" style="width: 90%" required>
+                                
+                            <button id="login-button">Login</button>
+                            <button id="cancel-login">Cancel</button>
+                        </div>
+                        <div class="log-form" id="signup-page">
+                            <span>Username</span>
+                            <input type="text" id="unames" style="width: 90%" required>
+                        
+                            <span>Password</span>
+                            <input type="password" id="psws" style="width: 90%" required>
+    
+                            <span>Re-enter password</span>
+                            <input type="password" id="psw2s" style="width: 90%" required>
+                                
+                            <button id="signup-button">Sign up</button>
+                            <button id="cancel-signup">Cancel</button>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="content-albums">
+                    
+                </div>
+                   
+            </div>
+        </div>
+        <footer class="footer-distributed">
+
+			<div class="footer-right">
+				<a href="#" class="fa-github"></a>
+			</div>
+
+			<div class="footer-left">
+				<p>MINH TUAN & ASHISH NAYAK  &copy; 2019</p>
+			</div>
+
+		</footer>
+    </body>
+
+</html>

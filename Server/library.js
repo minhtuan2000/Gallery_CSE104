@@ -113,6 +113,7 @@ function addImage(album, image){
       data["albums"][i]["files"].push(image);
     }
   }
+  // Should be modified again to send images to server
   saveFile(filePath);
 }
 
@@ -135,11 +136,12 @@ function deleteAlbum(album){
 }
 
 function deleteImage(album, image){
-  for (i = 0; i < data["albums"].length; i++){
+  for (let i = 0; i < data["albums"].length; i++){
     if (data["albums"][i]["name"] == album){
-      for (j = 0; j < data["albums"][i]["files"].length; j++){
-        if (data["albums"][i]["files"][j] == image){
+      for (let j = 0; j < data["albums"][i]["files"].length; j++){
+        if (image.includes(data["albums"][i]["files"][j])){
           data["albums"][i]["files"].splice(j, 1);
+          break;
         }
       }
     }
