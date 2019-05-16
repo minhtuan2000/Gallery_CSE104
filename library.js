@@ -14,12 +14,16 @@ function initializeLocalStorage(){
 
 function loadCredential(){
   let result = null;
-  let xmlhttp = new XMLHttpRequest();
-  xmlhttp.open("GET", "cre.json", false);
-  xmlhttp.send();
-  if (xmlhttp.status==200) {
-    result = xmlhttp.responseText;
-  } else {
+  try{
+    let xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", "cre.json", false);
+    xmlhttp.send();
+    if (xmlhttp.status==200) {
+      result = xmlhttp.responseText;
+    } else {
+      result = '{"users":[{"username":"admin","password":"admin"}]}';
+    }
+  } catch{
     result = '{"users":[{"username":"admin","password":"admin"}]}';
   }
   return result;
@@ -27,12 +31,16 @@ function loadCredential(){
 
 function loadUser(username){
   let result = null;
-  let xmlhttp = new XMLHttpRequest();
-  xmlhttp.open("GET", username + ".json", false);
-  xmlhttp.send();
-  if (xmlhttp.status==200) {
-    result = xmlhttp.responseText;
-  } else {
+  try{
+    let xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", username + ".json", false);
+    xmlhttp.send();
+    if (xmlhttp.status==200) {
+      result = xmlhttp.responseText;
+    } else {
+      result = '{"albums":[]}';
+    }
+  } catch {
     result = '{"albums":[]}';
   }
   return result;
