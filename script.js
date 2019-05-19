@@ -19,8 +19,7 @@ function initiate(){
         //Configure new album
         newAlbum.classList.add("left-box");
         if (i == 0){
-            selectedAlbum = list[i];
-            console.log("selected album: " + selectedAlbum);
+            changeAlbum(list[i]);
             newAlbum.classList.add("left-box-selected");
             newDeleteSign.src = "./Assets/delete.png";
             newRenameSign.src = "./Assets/rename.png";
@@ -51,8 +50,7 @@ function initiate(){
             currentAlbum.classList.remove("left-box-not-selected");
             currentAlbum.getElementsByTagName("img")[1].src = "./Assets/delete.png";
             currentAlbum.getElementsByTagName("img")[0].src = "./Assets/rename.png";
-            selectedAlbum = currentAlbum.getElementsByClassName("album-text")[0].textContent;
-            console.log("selected album: " + selectedAlbum);
+            changeAlbum(currentAlbum.getElementsByClassName("album-text")[0].textContent);
             getContent();
         });
         //append new album
@@ -61,7 +59,7 @@ function initiate(){
     getContent();
     //Add album
     const addAlbumSign = document.createElement("div");
-    addAlbumSign.classList.add("left-box");
+    addAlbumSign.classList.add("left-box-add-album");
     addAlbumSign.classList.add("left-box-not-selected");
     let addAlbumButton = document.createElement("div");
     addAlbumButton.setAttribute("id", "button-add-album");
@@ -69,20 +67,15 @@ function initiate(){
     addAlbumSign.appendChild(addAlbumButton);
     addAlbumSign.addEventListener("click", addAlbumProtocol);
     document.getElementById("left-menu").appendChild(addAlbumSign);
-    //Make add-image button available
-    document.getElementById("add-image-button").style.visibility = "visible";
 };
 
 function wipeout(){
     let parentElement = document.getElementById("album-box");
     let list = document.getElementsByClassName("left-box");
-    while (list.length > 1) parentElement.removeChild(list[0]);
-    document.getElementById("left-menu").removeChild(document.getElementsByClassName("left-box")[0]);
+    while (list.length > 0) parentElement.removeChild(list[0]);
+    document.getElementById("left-menu").removeChild(document.getElementsByClassName("left-box-add-album")[0]);
     wipeContent();
-    selectedAlbum = "";
-    //Clear add-image button
-    document.getElementById("add-image-button").style.visibility = "hidden";
-    console.log("Wiped out content");
+    changeAlbum("");
 };
 
 function getContent(){
@@ -123,8 +116,7 @@ function deleteAlbumProtocol(event){
         //Check if album is selected
         if (selectedAlbum == currentAlbumName){
             if (document.getElementsByClassName("left-box").length == 0){
-                selectedAlbum = "";
-                console.log("selected album: " + selectedAlbum);
+                changeAlbum("");
                 wipeContent();
             } else {
                 let currentAlbum = document.getElementsByClassName("left-box")[0];
@@ -132,8 +124,7 @@ function deleteAlbumProtocol(event){
                 currentAlbum.classList.remove("left-box-not-selected");
                 currentAlbum.getElementsByTagName("img")[1].src = "./Assets/delete.png";
                 currentAlbum.getElementsByTagName("img")[0].src = "./Assets/rename.png";
-                selectedAlbum = currentAlbum.getElementsByClassName("album-text")[0].textContent;
-                console.log("selected album: " + selectedAlbum);
+                changeAlbum(currentAlbum.getElementsByClassName("album-text")[0].textContent);
                 wipeContent();
                 getContent();
             };
@@ -151,8 +142,7 @@ function renameAlbumProtocol(event){
         renameAlbum(currentAlbumName, newName);
         //Check if album is selected
         if (selectedAlbum == currentAlbumName){
-            selectedAlbum = newName;
-            console.log("selected album: " + selectedAlbum);
+            changeAlbum(newName);
         };
     };
 };
@@ -174,8 +164,7 @@ function addAlbumProtocol(event){
     //Configure new album
     newAlbum.classList.add("left-box");
     if (document.getElementsByClassName("left-box").length == 0){
-        selectedAlbum = "";
-        console.log("selected album: " + selectedAlbum);
+        changeAlbum("");
         newAlbum.classList.add("left-box-selected");
         newDeleteSign.src = "./Assets/delete.png";
         newRenameSign.src = "./Assets/rename.png";
@@ -206,8 +195,7 @@ function addAlbumProtocol(event){
         currentAlbum.classList.remove("left-box-not-selected");
         currentAlbum.getElementsByTagName("img")[1].src = "./Assets/delete.png";
         currentAlbum.getElementsByTagName("img")[0].src = "./Assets/rename.png";
-        selectedAlbum = currentAlbum.getElementsByClassName("album-text")[0].textContent;
-        console.log("selected album: " + selectedAlbum);
+        changeAlbum(currentAlbum.getElementsByClassName("album-text")[0].textContent);
         getContent();
     });
     //append new album
@@ -224,8 +212,7 @@ function addAlbumProtocol(event){
         renameAlbum(currentAlbumName, newName);
         //Check if album is selected
         if (selectedAlbum == currentAlbumName){
-            selectedAlbum = newName;
-            console.log("selected album: " + selectedAlbum);
+            changeAlbum(newName);
         };
     } else {
         //Delete that album if a name is not chosen
@@ -237,8 +224,7 @@ function addAlbumProtocol(event){
         //Check if album is selected
         if (selectedAlbum == currentAlbumName){
             if (document.getElementsByClassName("left-box").length == 0){
-                selectedAlbum = "";
-                console.log("selected album: " + selectedAlbum);
+                changeAlbum("");
                 wipeContent();
             } else {
                 let currentAlbum = document.getElementsByClassName("left-box")[0];
@@ -246,8 +232,7 @@ function addAlbumProtocol(event){
                 currentAlbum.classList.remove("left-box-not-selected");
                 currentAlbum.getElementsByTagName("img")[1].src = "./Assets/delete.png";
                 currentAlbum.getElementsByTagName("img")[0].src = "./Assets/rename.png";
-                selectedAlbum = currentAlbum.getElementsByClassName("album-text")[0].textContent;
-                console.log("selected album: " + selectedAlbum);
+                changeAlbum(currentAlbum.getElementsByClassName("album-text")[0].textContent);
                 wipeContent();
                 getContent();
             };
@@ -398,5 +383,18 @@ function selectAllImagesProtocol(event){
     selectedImages = [];
     for (let i = 0; i < imageElementList.length; i++)
         selectImage(imageElementList[i]);
+}
+
+function changeAlbum(newAlbumName){
+    selectedAlbum = newAlbumName;
+    if (newAlbumName != ""){
+        //Make add image button visible
+        document.getElementById("add-image-button").style.visibility = "visible";
+        console.log("selected album: " + selectedAlbum);
+    } else {
+        //Clear add-image button
+        document.getElementById("add-image-button").style.visibility = "hidden";
+        console.log("select no album");
+    }
 }
 
