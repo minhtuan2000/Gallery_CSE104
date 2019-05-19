@@ -66,7 +66,5 @@ addImageButton.addEventListener("change", event => {
         addImage_localStorage(selectedAlbum, event.target.files[i]);
         //addImage(selectedAlbum, URL.createObjectURL(event.target.files[i]));
     };
-    wipeContent();
-    getContent();
 });
 
