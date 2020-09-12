@@ -54,6 +54,14 @@ body {
     width: 85%;
 }
 
+.left-box-add-album{
+    display: table;
+    margin:10px;
+    padding-right: 10px;
+    height: 50px;
+    width: 85%;
+}
+
 .album-text{
     vertical-align: middle;
     color:white;

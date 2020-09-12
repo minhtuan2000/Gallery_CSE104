@@ -143,12 +143,15 @@ function addImage_localStorage(album, imageData){
   var reader = new FileReader();
   reader.readAsDataURL(imageData);
   reader.onload = function () {
-  for (let i = 0; i < data["albums"].length; i++){
-    if (data["albums"][i]["name"] == album){
-      data["albums"][i]["files"].push(reader.result);
+    for (let i = 0; i < data["albums"].length; i++){
+      if (data["albums"][i]["name"] == album){
+        data["albums"][i]["files"].push(reader.result);
+      }
     }
-  }
-  saveFile(filePath);
+    saveFile(filePath);
+    //Update the webpage with new images
+    wipeContent();
+    getContent();
   };
   reader.onerror = function (error) {
     console.log('Error: ', error);
